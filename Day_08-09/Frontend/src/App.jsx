@@ -22,7 +22,7 @@ const App = () => {
   ])
    
   function fetchNotes() {
-   axios.get("http://localhost:3000/api/notes")
+   axios.get("https://backend-notes-creation-01.onrender.com/api/notes")
     .then(res => {
     setNotes(res.data.noteRetrive);    
   })
@@ -42,7 +42,7 @@ const App = () => {
     
     console.log(title,description);
     
-    axios.post("http://localhost:3000/api/notes",{
+    axios.post("https://backend-notes-creation-01.onrender.com/api/notes",{
       title:title,
       description:description
     })
@@ -56,7 +56,7 @@ const App = () => {
   function handleDeleteNote(noteId){
    console.log(noteId)
 
-   axios.delete(`http://localhost:3000/api/notes/${noteId}`)
+   axios.delete(`https://backend-notes-creation-01.onrender.com/notes/${noteId}`)
    .then(res=>{
     console.log(res.data);
     
@@ -72,7 +72,7 @@ const App = () => {
   function handleUpdateSubmit(e) {
     e.preventDefault()
 
-    axios.patch(`http://localhost:3000/api/notes/${editNote._id}`,{
+    axios.patch(`https://backend-notes-creation-01.onrender.com/api/notes/${editNote._id}`,{
       description:e.target.elements.description.value
     })
     .then(res => {
