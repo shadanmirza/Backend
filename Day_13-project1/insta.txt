@@ -1,0 +1,13 @@
+- Authentication
+    1. register
+    2. login
+    3. logout ( token blacklisting )
+    4. Otp based registration
+- Post
+    1. create
+    2. can see feed
+    3. like post ( collection types )
+    4. save post
+- user
+    1. followers
+    2. following
