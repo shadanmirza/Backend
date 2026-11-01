@@ -10,7 +10,7 @@ const authRouter = express.Router()
 authRouter.post("/register", authController.registerController)
 
 /** 
- * Post /api/auth/register
+ * Post /api/auth/login
  */
 authRouter.post("/login", authController.loginController)
 
