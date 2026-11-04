@@ -90,7 +90,7 @@ async function respondFollowRequestController(req, res) {
     const request = await followModel.findOneAndUpdate(
         { follower: username, followee: req.user.username, status: "pending" },
         { status },
-        { returnDocument: "after", runValidators: true }
+        { new: true, runValidators: true }
     )
 
     if (!request) {
