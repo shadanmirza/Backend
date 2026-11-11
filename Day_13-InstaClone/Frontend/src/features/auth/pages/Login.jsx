@@ -1,26 +1,31 @@
 import {useState} from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import logo from '../../../assets/logo.png'
 import loginPic from '../../../assets/loginPic.webp'
 import axios from 'axios'
+import { useAuth } from '../hooks/useAuth'
 
 const Login = () => {
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
-  function handleSubmit(e){
+  const { handleLogin, loading, user } = useAuth()
+  const navigate = useNavigate()
+
+  async function handleSubmit(e){
     e.preventDefault()
 
-    axios.post("http://localhost:3000/api/auth/login",{
-      username,
-      password
-    },{
-      withCredentials: true
-    })
-    .then(res => {
-      console.log(res.data)
-    })
+    await handleLogin(username, password)
+
+    navigate('/')
+    
+  }
+
+  if (loading){
+    return (
+      <h1>loading...</h1>
+    )
   }
 
   return (

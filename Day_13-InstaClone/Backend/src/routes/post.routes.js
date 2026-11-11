@@ -38,6 +38,14 @@ postRouter.post("/like/:postId", identifyUser, postController.likePostController
 * @route DELETE /api/posts/like/:postid
 * @description unlike a post with the id provided in the request params.
 */
-postRouter.delete("/like/:postId", identifyUser, postController.unlikePostController)
+postRouter.delete("/unlike/:postId", identifyUser, postController.unlikePostController)
+
+
+/**
+* @route GET /api/posts/feed
+* @description get all the post created in the DB
+* @access private
+*/
+postRouter.get("/feed", identifyUser, postController.getFeedController)
 
 module.exports = postRouter

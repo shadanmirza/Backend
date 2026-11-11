@@ -11,3 +11,7 @@
 - user
     1. followers
     2. following
+
+
+    user => username, profileImage
+    post => caption, imgUrl

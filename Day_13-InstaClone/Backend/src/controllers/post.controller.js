@@ -95,7 +95,6 @@ async function likePostController(req,res) {
     })
 }
 
-
 async function unlikePostController(req,res){
     const username = req.user.username
     const postId = req.params.postId
@@ -118,10 +117,35 @@ async function unlikePostController(req,res){
     })
 }
 
+async function getFeedController(req, res) {
+
+    const user = req.user
+
+    const posts = await Promise.all((await postModel.find().sort({_id: -1}).populate("user").lean())
+        .map(async (post)=>{
+
+            const isLiked = await likeModel.findOne({
+                user: user.username,
+                post: post._id
+            })
+
+            post.isLiked = Boolean(isLiked)
+
+            return post
+        }))
+        
+
+    res.status(200).json({
+        message: "post fatched successfully",
+        posts
+    })
+}
+
 module.exports = {
     createPostController,
     getPostController,
     getPostDetailsController,
     likePostController,
-    unlikePostController
+    unlikePostController,
+    getFeedController
 }

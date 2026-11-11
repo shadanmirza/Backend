@@ -79,7 +79,7 @@ async function getfollowRequestController(req,res){
     })
 }
 
-async function respondFollowRequestController(req, res) {
+async function respondFollowRequestController(req, res){
     const { status } = req.body // "accepted" or "rejected"
     const { username } = req.params // follower's username
 
@@ -100,9 +100,30 @@ async function respondFollowRequestController(req, res) {
     res.status(200).json({ message: `request ${status}`, follow: request })
 }
 
+async function getFollowersListController(req, res){
+
+    const followee = req.user.username
+    
+    const list = await followModel.find({
+        followee: followee,
+        status: "accepted"
+    }).select("follower")
+    
+    const followers = await userModel
+        .find({username: { $in: list.map(f => f.follower)}})
+        .select("profileImage username")
+    
+
+    return res.status(200).json({
+        message: "Followers list fatched successfully",
+        followers
+    })
+}
+
 module.exports = {
     followUserController,
     unfollowUserController,
     getfollowRequestController,
-    respondFollowRequestController
+    respondFollowRequestController,
+    getFollowersListController
 }

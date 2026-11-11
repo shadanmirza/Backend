@@ -36,5 +36,12 @@ userRouter.get("/followRequest", identifyUser, UserController.getfollowRequestCo
  */
 userRouter.patch("/changeStatus/:username", identifyUser, UserController.respondFollowRequestController)
 
+/**
+ * @route GET /api/users/followersList
+ * @description get the lists of followers user have
+ * @access Private
+ */
+userRouter.get("/followersList", identifyUser, UserController.getFollowersListController)
+
 
 module.exports = userRouter

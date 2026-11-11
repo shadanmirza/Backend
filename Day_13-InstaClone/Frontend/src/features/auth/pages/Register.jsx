@@ -1,28 +1,32 @@
 import { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import axios from 'axios'
+import { useAuth } from '../hooks/useAuth'
 
 const inputClass = 'h-[55px] w-full rounded-[20px] border border-[#505050] bg-transparent px-5 text-base text-white outline-none placeholder:text-[#a0a0a0] focus:border-[#888]'
 const labelClass = 'mb-2 block font-semibold text-[#f5f5f5]'
 
 const Register = () => {
+
+    const { loading, user, handleRegister } = useAuth()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [username, setUsername] = useState("")
 
+    
+    const navigate = useNavigate()
+
     async function handleSubmit(e) {
       e.preventDefault()
 
-      axios.post("http://localhost:3000/api/auth/register",{
-        username,
-        email,
-        password
-      }, {
-        withCredentials: true
-      })
-      .then(res => {
-        console.log(res.data)
-      })
+      await handleRegister(username, email, password)
+
+      navigate('/')
+    }
+
+    if(loading){
+      return(<main><h1>loading.....</h1></main>)
     }
 
   return (
